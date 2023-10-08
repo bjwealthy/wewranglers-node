@@ -1,0 +1,11 @@
+20230922	22:48:20	bca92251-cb2b-4ce3-b24f-4402dabe7a39	Error: Not allowed by dear old CORS 
+20230922	22:49:00	6b44a6f1-a79f-497b-87b9-a24e68704566	Error: Not allowed by dear old CORS 
+20230922	22:49:50	d508308d-5b69-4d26-91a2-a29e9b95fa0a	Error: Not allowed by dear old CORS 
+20230922	22:51:11	b5fde6b4-ae33-4ebd-a46d-3e7585afc2ab	Error: Not allowed by dear old CORS 
+20230922	22:54:07	7b40101b-e3c3-478a-bc4b-ca10862a5be5	Error: Not allowed by dear old CORS 
+20231006	07:52:11	bebf6d5e-776f-4f22-a44c-34383adaedc4	Error: ENOENT: no such file or directory, stat '/home/mobolaji/Documents/Projects/node-wewranglers/npm-lessons/routes/views/new-page.html' 
+20231006	07:54:52	b3dbf746-682c-4f75-affe-60756afe1dfd	Error: ENOENT: no such file or directory, stat '/home/mobolaji/Documents/Projects/node-wewranglers/npm-lessons/routes/views/new-page.html' 
+20231006	09:23:20	add9e314-b346-4c0b-a13d-b7d0369f5034	TypeError: Cannot read properties of undefined (reading 'lastname') 
+20231006	09:24:09	1afe139a-ec41-4cb1-825b-fc5b428b0f36	TypeError: Cannot read properties of undefined (reading 'lastname') 
+20231007	12:15:13	5ac51bf5-bc85-4178-b115-055c1e5e99e4	TypeError: res.statud is not a function 
+20231007	12:25:28	17bfab56-9771-4e1b-a9bb-0e72ea99608d	TypeError: data.setEmployees is not a function 
