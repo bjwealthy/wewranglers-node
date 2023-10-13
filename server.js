@@ -20,17 +20,22 @@ app.use(cors(corsOptions ))
 //will make it applicable to them all. It s used to extract url data from forms
 app.use(express.urlencoded({extended: false}))
 
-//2. To extract parameters from JSON data. It also applies to all routes under it
+//2. Builtin MW to extract parameters from JSON data. It also applies to all routes under it
 app.use(express.json())
 
-//3. to serve static files. Express will search the public directory for requests 
+//3. Builtin MW to serve static files. Express will search the public directory for requests 
 //before moving to other routes
 app.use('/', express.static(path.join(__dirname, '/public')))
 
 //root route
 app.use('/', require('./routes/root'))
+//register route
+app.use('/register', require('./routes/register'))
+//auth route
+app.use('/auth', require('./routes/auth'))
 //employee route
 app.use('/employees', require('./routes/api/employees'))
+
 
 
 //chaining route handlers

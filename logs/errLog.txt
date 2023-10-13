@@ -9,3 +9,6 @@
 20231006	09:24:09	1afe139a-ec41-4cb1-825b-fc5b428b0f36	TypeError: Cannot read properties of undefined (reading 'lastname') 
 20231007	12:15:13	5ac51bf5-bc85-4178-b115-055c1e5e99e4	TypeError: res.statud is not a function 
 20231007	12:25:28	17bfab56-9771-4e1b-a9bb-0e72ea99608d	TypeError: data.setEmployees is not a function 
+20231008	10:11:13	e274d4f9-f231-4a1e-94e6-82e09e9d096e	SyntaxError: Expected ':' after property name in JSON at position 15 
+20231008	10:24:45	7673f879-0a98-4744-82fa-c93678c9d15d	SyntaxError: Expected ':' after property name in JSON at position 15 
+20231011	18:37:57	60a28a04-5dee-4f17-b9ee-5c07f8092cac	ReferenceError: await is not defined 
