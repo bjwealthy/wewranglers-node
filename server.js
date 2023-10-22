@@ -1,8 +1,10 @@
 express = require('express')
 const app = express()
-const http = require('http')
 const path = require('path')
 const PORT = process.env.PORT || 3500
+const verifyJWT = require('./middleware/verifyJWT')
+const cookieParser = require('cookie-parser')
+const credentials = require('./middleware/credentials')
 
 const {logger} = require('./middleware/logEvents')
 const errorHandler = require('./middleware/errorHandler')
@@ -12,6 +14,10 @@ const corsOptions = require('./config/corsOptions')
 
 //CUSTOM MWs must be placed before every other route
 app.use(logger)
+
+//handle options credentials check - before CORS!
+//and fetch cookies credentials requireement
+app.use(credentials)
 
 app.use(cors(corsOptions ))
 
@@ -23,6 +29,9 @@ app.use(express.urlencoded({extended: false}))
 //2. Builtin MW to extract parameters from JSON data. It also applies to all routes under it
 app.use(express.json())
 
+//3. MW for cookies
+app.use(cookieParser())
+
 //3. Builtin MW to serve static files. Express will search the public directory for requests 
 //before moving to other routes
 app.use('/', express.static(path.join(__dirname, '/public')))
@@ -33,7 +42,13 @@ app.use('/', require('./routes/root'))
 app.use('/register', require('./routes/register'))
 //auth route
 app.use('/auth', require('./routes/auth'))
-//employee route
+//refresh route
+app.use('/refresh', require('./routes/refresh'))
+//logout route
+app.use('/logout', require('./routes/logout'))
+
+//employees route
+app.use(verifyJWT)
 app.use('/employees', require('./routes/api/employees'))
 
 

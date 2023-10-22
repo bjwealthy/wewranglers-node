@@ -1,8 +1,3 @@
-
-const fsPromises = require('fs').promises;
-const path = require('path')
-const bcrypt = require('bcrypt')
-
 const usersDB = {
     //bring in users.json
     users: require('../model/users.json'),
@@ -12,6 +7,11 @@ const usersDB = {
     }
 }
 
+const fsPromises = require('fs').promises;
+const jwt = require('jsonwebtoken')
+const path = require('path')
+const bcrypt = require('bcrypt')
+
 //create user accout
 const handleNewUser = async (req, res) => {
     console.log(usersDB.users)
@@ -19,10 +19,9 @@ const handleNewUser = async (req, res) => {
     if(!user || !pwd){
         return res.status(400).json({"message": "username and pw required!"})
     }
-    const duplicate = usersDB.users.find(person => person.username == user)
+    const duplicate = usersDB.users.find(person => person.username === user)
     if(duplicate){
-         return res.sendStatus(409)
-        
+         return res.sendStatus(409)  
     }
     try {
         //encrypt password
@@ -32,14 +31,17 @@ const handleNewUser = async (req, res) => {
         //store new user inside usersDB object
         usersDB.setUsers([...usersDB.users, newUser])
         //write the new object userDB (with the latest user) to d users.json file
-        await fsPromises.writeFile(path.join(__dirname, '..', 'model', 'users.json'), JSON.stringify(usersDB.users))
+        await fsPromises.writeFile(
+            path.join(__dirname, '..', 'model', 'users.json'), 
+            JSON.stringify(usersDB.users)
+        )
 
         console.log(usersDB.users)
         //display json response
         res.status(201).json({"success": `New user ${user} created successfully`})
         
-    } catch (error) {
-        res.status(500).json({"message": error.message})
+    } catch (err) {
+        res.status(500).json({"message": err.message})
     }
-};
+}; 
 module.exports = {handleNewUser};

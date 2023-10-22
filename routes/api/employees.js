@@ -13,5 +13,4 @@ router.route('/')
 router.route('/:id')
     .get(employeesController.getEmployee)
 
-
 module.exports = router;

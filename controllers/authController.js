@@ -14,9 +14,12 @@ const usersDB = {
 const handleLogin = async (req, res) => {
     const {user, pwd} = req.body
     if(!user || !pwd){
-        return res.status(401).json({"message":"username and password required"})
+        return res
+            .status(400)
+            .json({"message":"username and password required"})
     }
     const foundUser = usersDB.users.find(person => person.username === user)
+    console.log(foundUser);
     if(!foundUser){
         return res.sendStatus(401) //unauthorized
     }
@@ -26,16 +29,16 @@ const handleLogin = async (req, res) => {
         const accessToken = jwt.sign(
             {"username":foundUser.username},
             process.env.ACCESS_TOKEN_SECRET,
-            {expiresIn: '30s'}
+            {expiresIn: "60s"}
         );
 
         const refreshToken = jwt.sign(
             {"username":foundUser.username},
             process.env.REFRESH_TOKEN_SECRET,
-            {expiresIn: 'id'}
+            {expiresIn: "1d"}
         );
 
-        //save refresh token in the DB to allow logout route, 
+        //save refresh token in the current user object, to allow logout route, 
         //so as to invalidate refresh token after user logs out
         //-step 1
         const otherUsers = usersDB.users.filter(person => person.username !== foundUser.username)
@@ -45,11 +48,14 @@ const handleLogin = async (req, res) => {
         usersDB.setUsers([...otherUsers, currentUser])
         ////-step 4: write new users file
         await fsPromises.writeFile(
-            path.join(__dirname, 'model', 'users.json'),
+            path.join(__dirname, '..', 'model', 'users.json'),
             JSON.stringify(usersDB.users)
         )
-        //send refresh token and access token to user, as http-only cookie so it is not available to JS
-        res.cookie('jwt', refreshToken, {httpOnly: true, maxAge: 24*60*60*1000})
+        //send refresh token and access token to user, as http-only cookie 
+        //so it is not available to JS
+        res.cookie('jwt', refreshToken, {httpOnly: true, sameSite: 'None', 
+            secure: true, maxAge: 24*60*60*1000})
+        //send access token as json, to make it available for frontend dev
         res.json({accessToken})
         // res.json({'success':`user ${user} successfully logged in`})
 

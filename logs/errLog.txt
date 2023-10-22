@@ -12,3 +12,11 @@
 20231008	10:11:13	e274d4f9-f231-4a1e-94e6-82e09e9d096e	SyntaxError: Expected ':' after property name in JSON at position 15 
 20231008	10:24:45	7673f879-0a98-4744-82fa-c93678c9d15d	SyntaxError: Expected ':' after property name in JSON at position 15 
 20231011	18:37:57	60a28a04-5dee-4f17-b9ee-5c07f8092cac	ReferenceError: await is not defined 
+20231019	08:57:55	03610b50-c0dc-4ad1-97a5-2b9239e2151c	ReferenceError: req is not defined 
+20231019	09:02:29	ec4ba0b9-cb5a-4f20-9bb0-913ee9f1933d	ReferenceError: next is not defined 
+20231019	09:04:44	46dda5cb-b570-4e5b-96ca-ea5676eb3317	ReferenceError: resizeBy is not defined 
+20231019	09:07:58	f1300352-2a3f-4ab6-8933-45b0a1d3218d	ReferenceError: resizeBy is not defined 
+20231019	09:08:06	2505c0c4-2416-416f-9763-54ee00df156a	ReferenceError: resizeBy is not defined 
+20231019	09:08:39	d540aaee-a308-4448-be0e-a4efb0dadbcb	ReferenceError: resizeBy is not defined 
+20231019	09:08:52	12fa7a04-ad45-4623-832f-c9e976fe0387	ReferenceError: resizeBy is not defined 
+20231020	22:36:55	9df545e6-efc3-4253-a998-a54f0fbbd48d	TypeError: res.jdon is not a function 

@@ -1,21 +1,17 @@
 [
     {
         "id": 1,
-        "name": "skondogbe",
-        "class": "bulabal",
-        "age": "skrokpon"
+        "firstname": "skondogbe",
+        "lastname": "bulabal"
     },
     {
         "id": 2,
-        "name": "dudandadu",
-        "class": "olembesi",
-        "age": "tinkkpri"
+        "firstname": "dudandadu",
+        "lastname": "olembesi"
     },
     {
         "id": 3,
-        "name": "oluwaseun",
-        "class": "dada",
-        "age": "ertyu"
+        "firstname": "oluwaseun",
+        "lastname": "dada"
     }
-
 ]
