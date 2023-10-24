@@ -1,4 +1,4 @@
-//router for root
+//router for root route
 const express = require('express')
 const router = express.Router()
 const path = require('path')

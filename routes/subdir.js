@@ -1,4 +1,4 @@
-//router for subdirectory
+//router for subdirectory route
 
 const express = require('express')
 const router = express.Router()

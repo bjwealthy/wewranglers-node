@@ -27,7 +27,12 @@ const handleNewUser = async (req, res) => {
         //encrypt password
         const hashedPwd = await bcrypt.hash(pwd, 10)
         //create new user 
-        const newUser = {"username": user, "password": hashedPwd}
+        const newUser = {
+            "username": user,
+            "roles": {"user":2001},
+            "password": hashedPwd
+
+        }
         //store new user inside usersDB object
         usersDB.setUsers([...usersDB.users, newUser])
         //write the new object userDB (with the latest user) to d users.json file
