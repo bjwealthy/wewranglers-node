@@ -1,15 +1,12 @@
+// const usersDB = {
+//     users: require('../model/users.json'),
+//     setUsers: function(data){
+//         this.users = data
+//     }
+// }
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-require('dotenv').config()
-const fsPromises = require('fs').promises
-const path = require('path')
-
-const usersDB = {
-    users: require('../model/users.json'),
-    setUsers: function(data){
-        this.users = data
-    }
-}
+const User = require('../model/User')
 
 const handleLogin = async (req, res) => {
     const {user, pwd} = req.body
@@ -18,12 +15,13 @@ const handleLogin = async (req, res) => {
             .status(400)
             .json({"message":"username and password required"})
     }
-    const foundUser = usersDB.users.find(person => person.username === user)
+    const foundUser = await User.findOne({username: user}).exec()
     console.log(foundUser);
     if(!foundUser){
         return res.sendStatus(401) //unauthorized
     }
     const match = await bcrypt.compare(pwd, foundUser.password)
+    //if there's a login match, use the associated roles to create an access token and a refresh token
     if(match){
         const roles = Object.values(foundUser.roles)
         //create JWTs (Don't pass any sensitive info as d jwt can be grabbed by any1)
@@ -37,13 +35,14 @@ const handleLogin = async (req, res) => {
             process.env.ACCESS_TOKEN_SECRET,
             {expiresIn: "60s"}
         );
-
+        //create a refresh token
         const refreshToken = jwt.sign(
             {"username":foundUser.username},
             process.env.REFRESH_TOKEN_SECRET,
             {expiresIn: "1d"}
         );
 
+/*
         //save refresh token in the current user object, to allow logout route, 
         //so as to invalidate refresh token after user logs out
         //-step 1
@@ -57,10 +56,14 @@ const handleLogin = async (req, res) => {
             path.join(__dirname, '..', 'model', 'users.json'),
             JSON.stringify(usersDB.users)
         )
+*/
+        foundUser.refreshToken = refreshToken;
+        result = await foundUser.save()
+        console.log(result)
+
         //send refresh token and access token to user, as http-only cookie 
         //so it is not available to JS
-        res.cookie('jwt', refreshToken, {httpOnly: true, sameSite: 'None', 
-            secure: true, maxAge: 24*60*60*1000})
+        res.cookie('jwt', refreshToken, {httpOnly: true, sameSite: 'None', maxAge: 24*60*60*1000}) //secure: true,
         //send access token as json, to make it available for frontend dev
         res.json({accessToken})
         // res.json({'success':`user ${user} successfully logged in`})

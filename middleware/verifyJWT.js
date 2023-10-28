@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken')
-require('dotenv').config()
 
 //to be used to protect routes
 const verifyJwt = (req, res, next) => {
